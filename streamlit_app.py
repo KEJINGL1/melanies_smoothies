@@ -41,7 +41,11 @@ if ingredients_list and name_on_order:
         session.sql(my_insert_stmt).collect()
         st.success('Your Smoothie is ordered, ' + name_on_order + '!', icon="✅")
 
-import requests  
-smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")  
-# st.text(smoothiefroot_response.json())
-sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
+if ingredients_list:
+    ingredients_string = ''
+
+    for fruit_chosen in ingredients_list:
+        ingredients_string += fruit_chosen + ' '
+        st.subheader(fruit_chosen + ' Nutrition Information')
+        smoothiefruitoroot_response = requests.get("https://my.smoothiefruitoroot.com/api/fruit/" + fruit_chosen)
+        sf_df = st.dataframe(data=smoothiefruitoroot_response.json(), use_container_width=True)
